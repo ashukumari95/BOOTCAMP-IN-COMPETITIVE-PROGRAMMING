@@ -1,4 +1,6 @@
-# Define : Bootcamps are immersive, short-term programs designed to provide intensive training in specific fields, often focused on technology, programming, or business. Here's an overview of typical bootcamp details.
+# Define : 
+           Bootcamps are immersive, short-term programs designed to provide intensive training in specific fields, often focused on technology,
+           programming, or business. Here's an overview of typical bootcamp details.
 # Duration:
            # Short-term: Usually last from 8 to 9 weeks, depending on the complexity of the subject.
 # Curriculum
