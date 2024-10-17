@@ -1,0 +1,159 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Structure for a deque node
+struct node {
+    int data;
+    struct node* prev; // Pointer to the previous node
+    struct node* next; // Pointer to the next node
+};
+
+// Declare front and rear pointers for the deque
+struct node* front = 0;
+struct node* rear = 0;
+
+// Function prototypes
+void insert_front();
+void insert_rear();
+void delete_front();
+void delete_rear();
+void display();
+
+// Main function
+int main() {
+    int choice;
+
+    do {
+        printf("\n1. Insert at Front\n2. Insert at Rear\n3. Delete from Front\n4. Delete from Rear\n5. Display\n6. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                insert_front();
+                break;
+            case 2:
+                insert_rear();
+                break;
+            case 3:
+                delete_front();
+                break;
+            case 4:
+                delete_rear();
+                break;
+            case 5:
+                display();
+                break;
+            case 6:
+                exit(0);
+            default:
+                printf("Invalid choice\n");
+        }
+    } while (choice != 6);
+
+    return 0;
+}
+
+// Insert an element at the front of the deque
+void insert_front() {
+    int value;
+    printf("Enter value to insert at front: ");
+    scanf("%d", &value);
+
+    struct node* newNode = (struct node*)malloc(sizeof(struct node));
+    newNode->data = value;
+    newNode->prev = 0;
+    newNode->next = 0;
+
+    if (front == NULL) {
+        // If deque is empty, the new node becomes both front and rear
+        front = rear = newNode;
+    } else {
+        newNode->next = front;
+        front->prev = newNode;
+        front = newNode;
+    }
+    printf("%d inserted at front\n", value);
+}
+
+// Insert an element at the rear of the deque
+void insert_rear() {
+    int value;
+    printf("Enter value to insert at rear: ");
+    scanf("%d", &value);
+
+    struct node* newNode = (struct node*)malloc(sizeof(struct node));
+    newNode->data = value;
+    newNode->prev = 0;
+    newNode->next = 0;
+
+    if (rear == 0) {
+        // If deque is empty, the new node becomes both front and rear
+        front = rear = newNode;
+    } else {
+        newNode->prev = rear;
+        rear->next = newNode;
+        rear = newNode;
+    }
+    printf("%d inserted at rear\n", value);
+}
+
+// Delete an element from the front of the deque
+void delete_front() {
+    if (front == NULL) {
+        printf("Deque underflow\n");
+        return;
+    }
+
+    struct node* temp = front;
+    int deletedValue = front->data;
+
+    if (front == rear) {
+        // If there's only one element
+        front = rear = NULL;
+    } else {
+        front = front->next;
+        front->prev = NULL;
+    }
+
+    free(temp);
+    printf("Deleted from front: %d\n", deletedValue);
+}
+
+// Delete an element from the rear of the deque
+void delete_rear() {
+    if (rear == NULL) {
+        printf("Deque underflow\n");
+        return;
+    }
+
+    struct node* temp = rear;
+    int deletedValue = rear->data;
+
+    if (front == rear) {
+        // If there's only one element
+        front = rear = NULL;
+    } else {
+        rear = rear->prev;
+        rear->next = NULL;
+    }
+
+    free(temp);
+    printf("Deleted from rear: %d\n", deletedValue);
+}
+
+// Display the elements in the deque
+void display() {
+    if (front == NULL) {
+        printf("Deque is empty\n");
+        return;
+    }
+
+    struct node* temp = front;
+    printf("Deque elements: ");
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
